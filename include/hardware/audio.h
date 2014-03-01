@@ -356,7 +356,6 @@ struct audio_stream_out {
     int (*get_next_write_timestamp)(const struct audio_stream_out *stream,
                                     int64_t *timestamp);
 
-#ifndef ICS_AUDIO_BLOB
 #ifdef QCOM_DIRECTTRACK
     /**
      * start audio data rendering
@@ -367,14 +366,6 @@ struct audio_stream_out {
      * stop audio data rendering
      */
     int (*stop)(struct audio_stream_out *stream);
-
-    /**
-     * get the local time at which the next write to the audio driver will be presented.
-     * The units are microseconds, where the epoch is decided by the local audio HAL.
-     */
-    int (*get_next_write_timestamp)(const struct audio_stream_out *stream,
-                                    int64_t *timestamp);
-#endif
 #endif
 
     /**
@@ -642,8 +633,6 @@ struct audio_hw_device {
      * playing, and AUDIO_MODE_IN_CALL when a call is in progress.
      */
     int (*set_mode)(struct audio_hw_device *dev, audio_mode_t mode);
-    int (*dummy1)();
-    int (*dummy2)();
 
     /* mic mute */
     int (*set_mic_mute)(struct audio_hw_device *dev, bool state);

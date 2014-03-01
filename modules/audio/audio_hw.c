@@ -418,11 +418,15 @@ static int adev_open(const hw_module_t* module, const char* name,
     adev->device.get_parameters = adev_get_parameters;
 #ifndef ICS_AUDIO_BLOB
     adev->device.get_input_buffer_size = adev_get_input_buffer_size;
-    adev->device.open_output_stream = adev_open_output_stream;
-    adev->device.open_input_stream = adev_open_input_stream;
 #endif
+    adev->device.open_output_stream = adev_open_output_stream;
+#ifndef ICS_AUDIO_BLOB
     adev->device.close_output_stream = adev_close_output_stream;
+#endif
+    adev->device.open_input_stream = adev_open_input_stream;
+#ifndef ICS_AUDIO_BLOB
     adev->device.close_input_stream = adev_close_input_stream;
+#endif
     adev->device.dump = adev_dump;
 
     *device = &adev->device.common;
